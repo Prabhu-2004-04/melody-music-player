@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Melody — a Spotify-inspired music player with real YouTube playback for Kannada Sandalwood, Hindi Bollywood and English pop songs.">
+  <title>Melody — Music for every mood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Melody home"><span class="brand-mark">♫</span> melody</a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="home"><span>⌂</span> Home</button>
+        <button class="nav-item" data-view="search"><span>⌕</span> Search</button>
+        <button class="nav-item" data-view="library"><span>▤</span> Your Library</button>
+      </nav>
+      <div class="library-heading"><span>YOUR PLAYLISTS</span><button id="newPlaylist" title="Create playlist" aria-label="Create playlist">＋</button></div>
+      <div class="playlist-list" id="playlistList">
+        <button class="playlist-link" data-playlist="Sandalwood Hits"><span class="playlist-thumb orange">✦</span><span><b>Sandalwood Hits</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Bollywood Mix"><span class="playlist-thumb purple">☼</span><span><b>Bollywood Mix</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Global Pop"><span class="playlist-thumb blue">♫</span><span><b>Global Pop</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Focus Flow"><span class="playlist-thumb purple">♫</span><span><b>Focus Flow</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Golden Hour"><span class="playlist-thumb orange">☼</span><span><b>Golden Hour</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Late Night Drive"><span class="playlist-thumb blue">☾</span><span><b>Late Night Drive</b><small>Playlist · Melody</small></span></button>
+        <button class="playlist-link" data-playlist="Liked Songs"><span class="playlist-thumb liked">♥</span><span><b>Liked Songs</b><small id="likedCount">0 liked tracks</small></span></button>
+      </div>
+      <div class="sidebar-note"><span class="note-icon">✦</span><div><b>Your soundtrack</b><p>Little moments deserve great music.</p></div></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="history-buttons"><button aria-label="Back" id="backBtn">‹</button><button aria-label="Forward" id="forwardBtn">›</button></div>
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="What do you want to play?" aria-label="Search songs and artists"><kbd>/</kbd></label>
+        <button class="profile-button" id="profileButton"><span class="avatar">P</span><span>Listener</span><span>⌄</span></button>
+      </header>
+
+      <section class="content-view" id="homeView">
+        <div class="greeting-row"><div><p class="eyebrow">YOUR DAILY MIX</p><h1>Good evening<span class="green-dot">.</span></h1><p class="subheading">A little music can change the whole mood.</p></div><span class="weather-icon">☾</span></div>
+        <div class="quick-grid" id="quickGrid">
+          <button class="quick-card" data-playlist="Sandalwood Hits"><span class="quick-art art-golden">✦</span><b>Sandalwood Hits</b><span class="quick-play">▶</span></button>
+          <button class="quick-card" data-playlist="Bollywood Mix"><span class="quick-art art-focus">☼</span><b>Bollywood Mix</b><span class="quick-play">▶</span></button>
+          <button class="quick-card" data-playlist="Global Pop"><span class="quick-art art-night">♫</span><b>Global Pop</b><span class="quick-play">▶</span></button>
+          <button class="quick-card" data-playlist="Liked Songs"><span class="quick-art art-liked">♥</span><b>Liked Songs</b><span class="quick-play">▶</span></button>
+        </div>
+
+        <section class="section-block">
+          <div class="section-title"><div><p class="eyebrow">REGIONAL TO GLOBAL</p><h2>Explore your sound</h2></div><button class="text-button" data-view="library">Show all</button></div>
+          <div class="album-grid" id="albumGrid">
+            <article class="album-card" data-playlist="Sandalwood Hits"><div class="cover cover-golden"><span>SANDALWOOD<br>HITS</span><i>✦</i></div><h3>Sandalwood Hits</h3><p>Kannada artists and melodies.</p></article>
+            <article class="album-card" data-playlist="Bollywood Mix"><div class="cover cover-focus"><span>BOLLYWOOD<br>MIX</span><i>☼</i></div><h3>Bollywood Mix</h3><p>Hindi hits for every mood.</p></article>
+            <article class="album-card" data-playlist="Global Pop"><div class="cover cover-night"><span>GLOBAL<br>POP</span><i>♫</i></div><h3>Global Pop</h3><p>Popular English pop sounds.</p></article>
+            <article class="album-card" data-playlist="Liked Songs"><div class="cover cover-liked"><span>LIKED<br>SONGS</span><i>♥</i></div><h3>Your favourites</h3><p>All the tracks you save.</p></article>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-title"><div><p class="eyebrow">A GOOD PLACE TO START</p><h2>Popular right now</h2></div><button class="text-button" id="showAllTracks">View all</button></div>
+          <div class="track-table">
+            <div class="track-head"><span>#</span><span>Title</span><span>Vibe</span><span>Time</span><span></span></div>
+            <div id="trackList"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="content-view hidden" id="resultsView">
+        <p class="eyebrow">DISCOVER</p><h1 id="resultsTitle">Search</h1><p class="subheading" id="resultsSub">Find a track for this moment.</p>
+        <div class="track-table results-table"><div class="track-head"><span>#</span><span>Title</span><span>Vibe</span><span>Time</span><span></span></div><div id="resultsList"></div></div>
+        <div class="empty-state hidden" id="emptyState"><span>⌕</span><h3>No tracks found</h3><p>Try another song, artist, or vibe.</p></div>
+      </section>
+
+      <section class="content-view hidden" id="playlistView">
+        <div class="playlist-hero"><div class="playlist-large-art" id="playlistLargeArt">♫</div><div><p class="eyebrow">PLAYLIST</p><h1 id="playlistTitle">Sandalwood Hits</h1><p id="playlistDescription">A collection for your current mood.</p><p class="playlist-meta"><span class="avatar small">M</span> <b>Melody</b> · <span id="playlistTrackCount">0 tracks</span></p></div></div>
+        <div class="playlist-actions"><button class="main-play" id="playlistPlay">▶ Play</button><button class="outline-button" id="shuffleBtn">⤨ Shuffle</button></div>
+        <div class="track-table"><div class="track-head"><span>#</span><span>Title</span><span>Vibe</span><span>Time</span><span></span></div><div id="playlistTracks"></div></div>
+      </section>
+
+      <section class="content-view hidden" id="libraryView">
+        <p class="eyebrow">YOUR COLLECTION</p><h1>Your Library</h1><p class="subheading">Playlists and songs you have saved.</p>
+        <div class="library-tiles" id="libraryTiles"></div>
+      </section>
+      <footer class="page-footer"><span>Melody UI · Playback via YouTube IFrame API</span><span>Made for music lovers <b>♥</b></span></footer>
+    </main>
+  </div>
+
+  <!-- YouTube embedded player panel (shown when a track plays) -->
+  <div id="ytPanel" class="yt-panel" aria-label="YouTube video player" role="region">
+    <div class="yt-panel-header">
+      <span class="yt-panel-label">▶ Now Playing</span>
+      <span class="yt-panel-note">Powered by YouTube</span>
+    </div>
+    <div class="yt-embed-wrap">
+      <div id="ytEmbed"></div>
+    </div>
+  </div>
+
+  <footer class="player-bar">
+    <div class="now-playing">
+      <div class="mini-cover cover-focus" id="nowCover">✦</div>
+      <div class="now-text"><b id="nowTitle">Choose a track</b><span id="nowArtist">Select a song to start playing</span></div>
+      <button class="heart-button" id="nowLike" aria-label="Like current track">♡</button>
+    </div>
+    <div class="player-center">
+      <div class="controls">
+        <button id="shuffleControl" title="Shuffle">⤨</button>
+        <button id="previousTrack" title="Previous track">|◀</button>
+        <button class="play-button" id="playPause" title="Play">▶</button>
+        <button id="nextTrack" title="Next track">▶|</button>
+        <button id="repeatControl" title="Repeat">↻</button>
+      </div>
+      <div class="progress-row">
+        <span id="currentTime">—</span>
+        <input type="range" id="progress" min="0" max="100" value="0" aria-label="Song progress" disabled>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+    <div class="player-right">
+      <button id="muteButton" title="Mute / Unmute" aria-label="Mute">🔊</button>
+      <input type="range" id="volume" min="0" max="100" value="100" aria-label="Volume">
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
